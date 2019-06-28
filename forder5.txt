@@ -1,0 +1,88 @@
+
+Public Sub makedir()
+
+    Dim fso As Object
+    Set fso = CreateObject("Scripting.FileSystemObject")
+
+    Dim LastRow As Long
+    LastRow = Cells(Rows.Count, 1).End(xlUp).Row
+    MyArray = Range(Cells(2, 1), Cells(LastRow, 1))
+    Range(Cells(2, 1), Cells(LastRow, 1)).Select
+    
+    
+    Dim crDir As String
+    With Application.FileDialog(msoFileDialogFolderPicker)
+        If .Show = True Then
+            crDir = .SelectedItems(1)
+        End If
+    End With
+    
+    For Each itm In MyArray
+            ForderName = fso.BuildPath(crDir, itm)
+            If Dir(ForderName, vbDirectory) = "" Then
+                MkDir ForderName
+            Else
+            End If
+    Next itm
+    
+    Dim i As Integer
+    
+    For i = 2 To LastRow
+        ForderName1 = Cells(i, 1)
+        ForderName2 = Cells(i, 2)
+        A = fso.BuildPath(crDir, ForderName1)
+        B = fso.BuildPath(A, ForderName2)
+        If Dir(B, vbDirectory) = "" Then
+                MkDir B
+        Else
+        End If
+    Next i
+    
+    For i = 2 To LastRow
+        ForderName1 = Cells(i, 1)
+        ForderName2 = Cells(i, 2)
+        ForderName3 = Cells(i, 3)
+        A = fso.BuildPath(crDir, ForderName1)
+        B = fso.BuildPath(A, ForderName2)
+        C = fso.BuildPath(B, ForderName3)
+        If Dir(C, vbDirectory) = "" Then
+                MkDir C
+        Else
+        End If
+    Next i
+    
+    For i = 2 To LastRow
+        ForderName1 = Cells(i, 1)
+        ForderName2 = Cells(i, 2)
+        ForderName3 = Cells(i, 3)
+        ForderName4 = Cells(i, 4)
+        A = fso.BuildPath(crDir, ForderName1)
+        B = fso.BuildPath(A, ForderName2)
+        C = fso.BuildPath(B, ForderName3)
+        D = fso.BuildPath(C, ForderName4)
+        If Dir(D, vbDirectory) = "" Then
+                MkDir D
+        Else
+        End If
+    Next i
+    
+    For i = 2 To LastRow
+        ForderName1 = Cells(i, 1)
+        ForderName2 = Cells(i, 2)
+        ForderName3 = Cells(i, 3)
+        ForderName4 = Cells(i, 4)
+        ForderName5 = Cells(i, 5)
+        A = fso.BuildPath(crDir, ForderName1)
+        B = fso.BuildPath(A, ForderName2)
+        C = fso.BuildPath(B, ForderName3)
+        D = fso.BuildPath(C, ForderName4)
+        E = fso.BuildPath(D, ForderName5)
+        If Dir(E, vbDirectory) = "" Then
+                MkDir E
+        Else
+        End If
+    Next i
+    
+    Set fso = Nothing
+
+End Sub
