@@ -91,4 +91,21 @@ Sub SwitchWhiteSpace()
 
 End Sub
 
+Sub SwitchCSV()
+
+    Dim tmp As String
+    
+    tmp = ActiveSheet.Cells(1, 1).Value
+    tmp = Replace(tmp, vbCr, ",")
+    tmp = Replace(tmp, vbLf, ",")
+    tmp = Replace(tmp, vbCrLf, ",")
+    tmp = Replace(tmp, ",,", ",")
+    tmp = Replace(tmp, ",,", ",")
+    tmp = Replace(tmp, ",,", ",")
+    tmp = Replace(tmp, ",,", ",")
+    tmp = Replace(tmp, ",,", ",")
+    ActiveSheet.Cells(1, 1).Value = tmp
+    
+End Sub
+
 
