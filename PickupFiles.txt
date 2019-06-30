@@ -1,0 +1,82 @@
+
+Sub PickupFiles()
+
+    '前処理
+    Dim FSO As Object
+    Set FSO = CreateObject("Scripting.FileSystemObject")
+    
+    '検索対象フォルダの指ｄｄ定
+    Dim TargetDir As String
+    With Application.FileDialog(msoFileDialogFolderPicker)
+        .Title = "検索対象のフォルダを選択してください"
+        If .Show = True Then
+            TargetDir = .SelectedItems(1)
+        End If
+    End With
+    
+    If TargetDir = "" Then
+        End
+    End If
+    
+    
+    '検索文字列の指定
+    Dim TargetText As String
+    TargetText = Application.InputBox("検索する文字列を入力してください", "PickupFiles")
+    
+    If TargetText = "" Then
+        End
+        
+    End If
+    
+    '保存先フォルダの指定
+    Dim SaveDir As String
+    With Application.FileDialog(msoFileDialogFolderPicker)
+        .Title = "収集したファイルを保存するフォルダを選択してください"
+        If .Show = True Then
+            SaveDir = .SelectedItems(1)
+        End If
+    End With
+    
+    If SaveDir = "" Then
+        End
+    End If
+    
+    
+    '実行
+    Call getFileList(TargetDir, TargetText, SaveDir)
+    
+    MsgBox "ファイルの収集が完了しました", vbOKOnly, "Infromation"
+    
+    '後始末
+    Set FSO = Nothing
+
+End Sub
+
+Private Sub getFileList(searchPath As String, TargetText As String, SaveDir As String)
+
+    Dim FSO As Object
+    Set FSO = CreateObject("Scripting.FileSystemObject")
+    
+    For Each File In FSO.GetFolder(searchPath).Files
+    
+        If InStr(File.Name, TargetText) <> 0 Then
+            
+            FullFileName = FSO.BuildPath(SaveDir, File.Name)
+            FSO.CopyFile File, FullFileName
+            
+        End If
+        
+        
+    Next
+    
+    
+    For Each SubFolder In FSO.GetFolder(searchPath).SubFolders
+        
+        Call getFileList(SubFolder.Path, TargetText, SaveDir)
+    
+    Next
+
+    
+End Sub
+
+

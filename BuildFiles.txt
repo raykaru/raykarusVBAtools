@@ -1,0 +1,91 @@
+
+
+Sub BuildFiles()
+
+    Dim FSO As Object
+    Set FSO = CreateObject("Scripting.FileSystemObject")
+
+    Dim LastRow As Long
+    LastRow = Cells(Rows.Count, 1).End(xlUp).Row
+    MyArray = Range(Cells(2, 1), Cells(LastRow, 1))
+    
+    Dim TargetFile As String
+    With Application.FileDialog(msoFileDialogFilePicker)
+        .AllowMultiSelect = False
+        .Title = "複製したいファイルを選択してください"
+        If .Show = True Then
+            TargetFile = .SelectedItems(1)
+        End If
+    End With
+    
+    If TargetFile = "" Then
+        End
+    End If
+    
+    Dim TargetFileBaesName As String
+    Dim TargetFileExtension As String
+    
+    TargetFileBaesName = FSO.GetBaseName(TargetFile)
+    TargetFileExtension = FSO.GetExtensionName(TargetFile)
+    
+    Dim crDir As String
+    With Application.FileDialog(msoFileDialogFolderPicker)
+        .Title = "複製したファイルを保存するフォルダを選択してください"
+        If .Show = True Then
+            crDir = .SelectedItems(1)
+        End If
+    End With
+    
+    If crDir = "" Then
+        End
+    End If
+    
+    For i = 2 To LastRow
+    
+        Name1 = Cells(i, 1)
+        Name2 = Cells(i, 2)
+        Name3 = Cells(i, 3)
+        Name4 = Cells(i, 4)
+        Name5 = Cells(i, 5)
+        
+        Dim tmp As String
+        
+        If Name1 <> "" Then
+            tmp = TargetFileBaesName & "_" & Name1
+        Else
+            tmp = TargetFileBaesName
+        End If
+        
+        If Name2 <> "" Then
+            tmp = tmp & "_" & Name2
+        Else
+        End If
+        
+        If Name3 <> "" Then
+            tmp = tmp & "_" & Name3
+        Else
+        End If
+        
+        If Name4 <> "" Then
+            tmp = tmp & "_" & Name4
+        Else
+        End If
+        
+        If Name5 <> "" Then
+            tmp = tmp & "_" & Name5
+        Else
+        End If
+        
+        FileName = tmp & "." & TargetFileExtension
+        FullFileName = FSO.BuildPath(crDir, FileName)
+        
+        FSO.CopyFile TargetFile, FullFileName
+        
+    Next i
+    
+    
+    MsgBox "ファイルの複製が完了しました", vbOKOnly, "Infromation"
+    
+    Set FSO = Nothing
+
+End Sub

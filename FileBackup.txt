@@ -1,0 +1,45 @@
+
+Sub FileBackup()
+    
+    Dim FSO As Object
+    Set FSO = CreateObject("Scripting.FileSystemObject")
+    
+    Dim tmp As String
+    Dim BaseName As String
+    Dim Extention As String
+    Dim OldPath As String
+    Dim OldFileFullName As String
+    Dim TimeStamp As String
+    
+    TimeStamp = "_" & Format(Now, "yyyymmddhhnn")
+    
+    With Application.FileDialog(msoFileDialogFilePicker)
+        .AllowMultiSelect = True
+        .Title = "バックアップするファイルを選択してください"
+        If .Show = True Then
+            For Each itm In .SelectedItems
+                BaseName = FSO.GetBaseName(itm)
+                Extention = FSO.GetExtensionName(itm)
+                tmp = FSO.GetParentFolderName(itm)
+                OldPath = FSO.BuildPath(tmp, "_old")
+                FileName = BaseName & TimeStamp & Extention
+                OldFileFullName = FSO.BuildPath(OldPath, FileName)
+
+                If FSO.FolderExists(OldPath) Then
+                Else
+                    MkDir OldPath
+                End If
+                
+                FSO.CopyFile itm, OldFileFullName
+            
+            Next
+        Else
+            End
+        End If
+    End With
+    
+    
+    MsgBox "ファイルのバックアップが完了しました", vbOKOnly, "Infromation"
+    Set FSO = Nothing
+    
+End Sub

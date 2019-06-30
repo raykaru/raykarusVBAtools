@@ -1,0 +1,94 @@
+
+Sub SwitchClear()
+
+    ActiveSheet.Cells(1, 1).Value = ""
+    
+
+End Sub
+
+Sub SwitchUpper()
+
+    Dim tmp As String
+    
+    tmp = ActiveSheet.Cells(1, 1).Value
+    ActiveSheet.Cells(1, 1).Value = StrConv(tmp, vbUpperCase)
+    
+
+End Sub
+
+Sub SwitchLower()
+
+    Dim tmp As String
+    
+    tmp = ActiveSheet.Cells(1, 1).Value
+    ActiveSheet.Cells(1, 1).Value = StrConv(tmp, vbLowerCase)
+    
+
+End Sub
+
+Sub SwitchProper()
+
+    Dim tmp As String
+    
+    tmp = ActiveSheet.Cells(1, 1).Value
+    ActiveSheet.Cells(1, 1).Value = StrConv(tmp, vbProperCase)
+    
+
+End Sub
+
+Sub SwitchWide()
+
+    Dim tmp As String
+    
+    tmp = ActiveSheet.Cells(1, 1).Value
+    ActiveSheet.Cells(1, 1).Value = StrConv(tmp, vbWide)
+    
+
+End Sub
+
+Sub SwitchNarrow()
+
+    Dim tmp As String
+    
+    tmp = ActiveSheet.Cells(1, 1).Value
+    ActiveSheet.Cells(1, 1).Value = StrConv(tmp, vbNarrow)
+    
+
+End Sub
+
+Sub SwitchKatakana()
+
+    Dim tmp As String
+    
+    tmp = ActiveSheet.Cells(1, 1).Value
+    ActiveSheet.Cells(1, 1).Value = StrConv(tmp, vbKatakana)
+    
+
+End Sub
+
+
+Sub SwitchHiragana()
+
+    Dim tmp As String
+    
+    tmp = ActiveSheet.Cells(1, 1).Value
+    ActiveSheet.Cells(1, 1).Value = StrConv(tmp, vbHiragana)
+    
+
+End Sub
+
+Sub SwitchWhiteSpace()
+
+    Dim tmp As String
+    
+    tmp = ActiveSheet.Cells(1, 1).Value
+    tmp = Trim(tmp)
+    tmp = Replace(tmp, vbTab, "")           'タブ削除
+    tmp = Replace(tmp, vbCr, "")            '改段落削除
+    tmp = Replace(tmp, vbVerticalTab, "")   '改行削除
+    ActiveSheet.Cells(1, 1).Value = tmp
+    
+
+End Sub
+
+
